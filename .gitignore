@@ -1,0 +1,13 @@
+*.iml
+.gradle
+/local.properties
+gradle.properties
+.DS_Store
+.idea
+build
+/captures
+.externalNativeBuild
+
+# Windows clutter
+Thumbs.db
+app/libs/

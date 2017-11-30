@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DeploymentMVP</string>
+    <string name="kontakt_io_api_key">YOUR API KEY</string>
+</resources>

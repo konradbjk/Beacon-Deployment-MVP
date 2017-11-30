@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_mainscreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.admin.deploymentmvp.MainScreen">
+
+
+    <Button
+        android:id="@+id/scan_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/view_map_button"
+        android:layout_alignBottom="@+id/view_map_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="37dp"
+        android:text="SCAN" />
+
+    <Switch
+        android:text="GPS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:id="@+id/switchGps"
+        android:layout_below="@+id/switchEddystone"
+        android:layout_alignEnd="@+id/switchEddystone" />
+
+    <Switch
+        android:text="Eddystone profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:id="@+id/switchEddystone"
+        android:layout_below="@+id/switchIBeacon"
+        android:layout_alignEnd="@+id/switchIBeacon" />
+
+    <Switch
+        android:id="@+id/switchIBeacon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scan_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp"
+        android:text="iBeacon profile" />
+
+    <Button
+        android:id="@+id/view_map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/switchGps"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="47dp"
+        android:text="View Map" />
+
+</RelativeLayout>

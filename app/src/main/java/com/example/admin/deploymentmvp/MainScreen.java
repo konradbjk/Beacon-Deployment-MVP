@@ -599,7 +599,7 @@ public class MainScreen extends AppCompatActivity {
     }
 
     private void launchMapViewScreen() {
-        Intent intent = new Intent(this, ViewMapScreen.class);
+        Intent intent = new Intent(MainScreen.this,ViewMapScreen.class);
         startActivity(intent);
     }
 

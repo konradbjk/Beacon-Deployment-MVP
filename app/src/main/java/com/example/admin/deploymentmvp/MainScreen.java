@@ -11,6 +11,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -73,13 +74,16 @@ public class MainScreen extends AppCompatActivity {
     private ProximityManager kontaktManager;
     private String TAG = "MyActivity";
 
-    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
+    protected static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
+    protected static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
+    private static final int READ_REQUEST_CODE = 42;
+
 
     protected String oneBeaconLine = "0";
 
     protected static int i = 0;
-    protected LocationManager locationManager;
+    protected static LocationManager locationManager;
+    static String provider;
     protected Button startScanButton;
     protected Button viewMapButton;
     protected String rssi;
@@ -146,7 +150,7 @@ public class MainScreen extends AppCompatActivity {
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchMapViewScreen();
+                performFileSearch();
             }
         });
         startScanButton = (Button) findViewById(R.id.scan_button);
@@ -448,7 +452,7 @@ public class MainScreen extends AppCompatActivity {
         criteria.setCostAllowed(true);
         criteria.setPowerRequirement(Criteria.POWER_HIGH);
 
-        String provider = locationManager.getBestProvider(criteria, true);
+        provider = locationManager.getBestProvider(criteria, true);
         Location location = locationManager.getLastKnownLocation(provider);
         if (location != null) {
             //Log.d(TAG, "Current Location Longitude: " + location.getLongitude() + " Latitude:" + location.getLatitude());
@@ -596,6 +600,48 @@ public class MainScreen extends AppCompatActivity {
     private void launchScanScreen() {
         Intent intent = new Intent(this, ScanScreen.class);
         startActivity(intent);
+    }
+
+    public void performFileSearch() {
+
+        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
+        // browser.
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+
+        // Filter to only show results that can be "opened", such as a
+        // file (as opposed to a list of contacts or timezones)
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        // Filter to show only images, using the image MIME data type.
+        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
+        // To search for all documents available via installed storage providers,
+        // it would be "*/*".
+        intent.setType("*/*");
+
+        startActivityForResult(intent, READ_REQUEST_CODE);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 Intent resultData) {
+
+        // The ACTION_OPEN_DOCUMENT intent was sent with the request code
+        // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
+        // response to some other intent, and the code below shouldn't run at all.
+
+        if (requestCode == READ_REQUEST_CODE && resultCode == android.app.Activity.RESULT_OK) {
+            // The document selected by the user won't be returned in the intent.
+            // Instead, a URI to that document will be contained in the return intent
+            // provided to this method as a parameter.
+            // Pull that URI using resultData.getData().
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+                Log.i(TAG, "Uri: " + uri.toString());
+                launchMapViewScreen();
+            }
+        }
     }
 
     private void launchMapViewScreen() {

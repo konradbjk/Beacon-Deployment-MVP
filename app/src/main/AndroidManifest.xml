@@ -40,7 +40,17 @@
             android:name="kontakt.io.API_KEY"
             android:value="@string/kontakt_io_api_key" />
 
-        <activity android:name=".ScanScreen"></activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCPg1Z-PjgHZGynGA_nHzeFQaPMK6LjhX0" />
+
+        <activity android:name=".ScanScreen">
+
+        </activity>
     </application>
 
 </manifest>
